@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Support</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 13px;
+        color: #000;
+        margin: 0;
+      }
+
+      #zohoSupportWebToCase {
+        margin: 0 auto;
+        position: relative;
+        min-height: 400px;
+      }
+
+      #successMessage {
+        display: none;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 80%;
+        max-width: 500px;
+        text-align: center;
+        padding: 40px;
+      }
+
+      #successMessage h2 {
+        margin-bottom: 10px;
+        font-size: 24px;
+      }
+
+      #successMessage p {
+        font-size: 16px;
+        line-height: 1.5;
+      }
+
+      .zsFormClass {
+        background-color: #ffffff;
+        width: 100%;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      .zsFontClass {
+        color: #000000;
+        font-family: Arial;
+        font-size: 13px;
+      }
+
+      #zohoSupportWebToCase textarea,
+      #zohoSupportWebToCase input[type='text'],
+      #zohoSupportWebToCase input[type='email'],
+      #zohoSupportWebToCase input[type='date'],
+      #zohoSupportWebToCase select {
+        width: 100%;
+        border: 1px solid #ddd;
+        padding: 8px 10px;
+        border-radius: 3px;
+        font-size: 13px;
+        font-family: inherit;
+        box-sizing: border-box;
+      }
+
+      #zohoSupportWebToCase input[required],
+      #zohoSupportWebToCase textarea[required],
+      #zohoSupportWebToCase select[required] {
+        border-left: 2px solid #f00;
+      }
+
+      #zohoSupportWebToCase textarea {
+        min-height: 80px;
+        resize: vertical;
+        height: 120px;
+      }
+
+      #zohoSupportWebToCase table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      #zohoSupportWebToCase td {
+        padding: 11px 5px;
+        vertical-align: top;
+      }
+
+
+      .hleft {
+        text-align: left;
+      }
+
+      .wtcmanfield {
+        color: #f00;
+        font-size: 16px;
+        position: relative;
+        top: 2px;
+        left: 1px;
+      }
+
+      .required::after {
+        content: '';
+      }
+
+      .form-actions {
+        padding-top: 20px;
+        text-align: center;
+      }
+
+      .form-actions button {
+        padding: 10px 24px;
+        margin: 0 5px;
+        border: none;
+        border-radius: 4px;
+        font-size: 14px;
+        cursor: pointer;
+        font-family: inherit;
+      }
+
+      .btn-submit {
+        background-color: #1976d2;
+        color: white;
+      }
+
+      .btn-submit:hover:not(:disabled) {
+        background-color: #1565c0;
+      }
+
+      .btn-submit:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+      }
+
+      .btn-reset {
+        background-color: #f5f5f5;
+        color: #333;
+      }
+
+      .btn-reset:hover {
+        background-color: #e0e0e0;
+      }
+
+      input[type='file']::-webkit-file-upload-button {
+        cursor: pointer;
+      }
+
+      .wtcsepcode {
+        margin: 0px 15px;
+        color: #aaa;
+        float: left;
+      }
+
+      .wtccloudattach {
+        float: left;
+        color: #00a3fe !important;
+        cursor: pointer;
+        text-decoration: none !important;
+      }
+
+      .wtccloudattach:hover {
+        text-decoration: none !important;
+      }
+
+      .wtcuploadinput {
+        cursor: pointer;
+        float: left;
+        width: 62px;
+        margin-top: -20px;
+        opacity: 0;
+        clear: both;
+      }
+
+      .wtcuploadfile {
+        float: left;
+        color: #00a3fe;
+        cursor: pointer;
+      }
+
+      .filenamecls {
+        margin-bottom: 8px;
+        display: block;
+      }
+
+      .clboth {
+        clear: both;
+      }
+
+      #zsFileBrowseAttachments {
+        clear: both;
+        margin: 5px 0px 10px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .zsMaxSizeMessage {
+        font-size: 13px;
+      }
+
+      .wb_FtCon {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        margin-top: 15px;
+        padding-left: 10px;
+      }
+
+      .wb_logoCon {
+        display: flex;
+        margin-left: 5px;
+      }
+
+      .wb_logo {
+        max-width: 16px;
+        max-height: 16px;
+      }
+
+      @media (max-width: 600px) {
+        #zohoSupportWebToCase table,
+        #zohoSupportWebToCase tr,
+        #zohoSupportWebToCase td {
+          display: block;
+          width: 100%;
+        }
+
+        #zohoSupportWebToCase textarea,
+        #zohoSupportWebToCase input[type='text'],
+        #zohoSupportWebToCase input[type='email'],
+        #zohoSupportWebToCase select {
+          width: 100%;
+        }
+      }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script>
+      /* replica: the live page loads Zoho's jqueryandencoder bundle; jQuery.encoder is polyfilled here with plain escapers */
+      (function ($) {
+        if (!$ || $.encoder) return;
+        var map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#x27;', '/': '&#x2F;' };
+        function html(s) { return String(s).replace(/[&<>"'\/]/g, function (c) { return map[c]; }); }
+        function hex4(c) { return '\\u' + ('0000' + c.charCodeAt(0).toString(16)).slice(-4); }
+        $.encoder = {
+          encodeForHTML: html,
+          encodeForHTMLAttribute: html,
+          encodeForJavascript: function (s) { return String(s).replace(/[^a-zA-Z0-9,._ ]/g, hex4); },
+          encodeForCSS: function (s) { return String(s).replace(/[^a-zA-Z0-9]/g, function (c) { return '\\' + c.charCodeAt(0).toString(16) + ' '; }); },
+        };
+      })(window.jQuery);
+    </script>
+  </head>
+  <body>
+    <div id="zohoSupportWebToCase" align="center">
+      <form
+        name="zsWebToCase_1176583000000529295"
+        id="zsWebToCase_1176583000000529295"
+        action="https://desk.zoho.com/support/WebToCase"
+        method="POST"
+        enctype="multipart/form-data"
+        target="zoho-submit-frame"
+      >
+        <input type="hidden" name="xnQsjsdp" value="edbsnbd2708464a9b7bf60d8b84c5085d3893" />
+        <input
+          type="hidden"
+          name="xmIwtLD"
+          value="edbsnc62991aaefbff436ed5269b65fbc66a3456e4f38cf9c87827914f7f6af7e73b4"
+        />
+        <input type="hidden" name="xJdfEaS" value="" />
+        <input type="hidden" name="actionType" value="Q2FzZXM=" />
+        <input type="hidden" name="returnURL" value="*" />
+        <input type="hidden" id="property(module)" value="Cases" />
+
+        <table border="0" cellspacing="0" class="zsFormClass">
+          <tr>
+            <td nowrap class="zsFontClass" width="25%" align="left">Reporter Name</td>
+            <td align="left" width="75%">
+              <input type="text" maxlength="120" name="First Name" id="firstName" value="" />
+            </td>
+          </tr>
+          <tr>
+            <td nowrap class="zsFontClass required" width="25%" align="left">Organization</td>
+            <td align="left" width="75%">
+              <input type="text" maxlength="120" name="Contact Name" id="contactName" required />
+            </td>
+          </tr>
+          <tr>
+            <td nowrap class="zsFontClass required" width="25%" align="left">Email</td>
+            <td align="left" width="75%">
+              <input type="email" maxlength="120" name="Email" id="email" value="" required />
+            </td>
+          </tr>
+          <tr>
+            <td nowrap class="zsFontClass required" width="25%" align="left">Subject</td>
+            <td align="left" width="75%">
+              <input type="text" maxlength="255" name="Subject" id="subject" value="" required />
+            </td>
+          </tr>
+          <tr>
+            <td nowrap class="zsFontClass required" width="25%" align="left">Category</td>
+            <td align="left" width="75%">
+              <select name="Category" id="Category" value="" required>
+                <option value="Usability question">Usability question</option>
+                <option value="Feature Request">Feature Request</option>
+                <option value="Error Message">Error Message</option>
+                <option value="User Management">User Management</option>
+                <option value="Location matching">Location matching</option>
+                <option value="Missing Payments">Missing Payments</option>
+                <option value="Missing Claims">Missing Claims</option>
+                <option value="Missing or incorrect EOB">Missing or incorrect EOB</option>
+                <option value="Dashboard discrepancy">Dashboard discrepancy</option>
+                <option value="Login and Credentials">Login and Credentials</option>
+                <option value="Autoposting">Autoposting</option>
+                <option value="Denial Payment Issue">Denial Payment Issue</option>
+                <option value="Clear EFT / Check">Clear EFT / Check</option>
+                <option value="Correct payment date or amount">Correct payment date or amount</option>
+                <option value="BDV (Bank Data)">BDV (Bank Data)</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td nowrap class="zsFontClass required" width="25%" align="left">Description</td>
+            <td align="left" width="75%">
+              <textarea name="Description" id="description" maxlength="3000" required></textarea>
+            </td>
+          </tr>
+          <tr>
+            <td nowrap class="zsFontClass" width="25%" align="left">Attachment</td>
+            <td align="left" width="75%">
+              <span class="zsFontClass wtcuploadfile" id="zsBrowseAttachment">Attach files</span>
+              <input
+                class="wtcuploadinput"
+                type="file"
+                name="attachment_1"
+                id="zsattachment_1"
+                style="display: block"
+              />
+              <input
+                class="wtcuploadinput"
+                type="file"
+                name="attachment_2"
+                id="zsattachment_2"
+                style="display: none"
+              />
+              <input
+                class="wtcuploadinput"
+                type="file"
+                name="attachment_3"
+                id="zsattachment_3"
+                style="display: none"
+              />
+              <input
+                class="wtcuploadinput"
+                type="file"
+                name="attachment_4"
+                id="zsattachment_4"
+                style="display: none"
+              />
+              <input
+                class="wtcuploadinput"
+                type="file"
+                name="attachment_5"
+                id="zsattachment_5"
+                style="display: none"
+              />
+              <div class="clboth"></div>
+              <span id="zsMaxSizeMessage" style="color: #666; font-size: 12px; float: left"
+                >Each of your file(s) can be up to 20MB in size.</span
+              >
+              <span
+                id="zsMaxLimitMessage"
+                style="color: #666; font-size: 12px; float: left; margin-left: 14px; display: none"
+                >You can attach as many as 5 files at a time.</span
+              >
+              <div id="zsFileBrowseAttachments"></div>
+            </td>
+          </tr>
+        </table>
+
+        <div class="form-actions">
+          <button type="submit" class="btn-submit" id="submitButton">Submit</button>
+          <button type="button" class="btn-reset">Reset</button>
+        </div>
+      </form>
+
+      <iframe name="zoho-submit-frame" id="zoho-submit-frame" style="display: none"></iframe>
+
+      <div id="successMessage">
+        <h2>Thank you!</h2>
+        <p>Your support request has been submitted successfully. We will get back to you soon.</p>
+      </div>
+    </div>
+
+    <script src="zoho-desk-form.js"></script>
+  </body>
+</html>
